@@ -207,7 +207,7 @@ bool MainWindow::isProcessExits(std::string processName)
     if (!processMap.empty()) {
         hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processMap[processName]);
         if (hProc) {
-            printf("%d", hProc);
+            printProcStatus(processName);
             rFlag = true;
         } else {
             for (auto CwIter = processMap.begin(); CwIter != processMap.end();)
@@ -229,6 +229,22 @@ VOID MainWindow::KeyEventProc(KEY_EVENT_RECORD ker)
     for (auto& [key, value] : winBoxes) {
         value->checkKbHit(ker, this);
     }
+}
+
+void MainWindow::printProcStatus(std::string procName)
+{
+    // Adding Process Status
+    std::list<CHAR*> textLines;
+    CHAR outText1[64];
+    procName.append(" process is already started!");
+    wsprintf(outText1, procName.data());
+    textLines.push_back(outText1);
+
+    for (auto& [key, value] : winBoxes) {
+        value->handleWinElement("INITIAL_DATA", TEXT_BOX_ELEMENT, textLines, hStdout);
+    }
+
+    textLines.clear();
 }
 
 HANDLE MainWindow::getHandleStdOut()

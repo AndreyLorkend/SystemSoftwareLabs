@@ -41,6 +41,7 @@ private:
 	bool ErrorExit(LPSTR lpszMessage);
 	void CreateElements();
 	VOID KeyEventProc(KEY_EVENT_RECORD ker);
+	void printProcStatus(std::string procName);
 public:
 	HANDLE getHandleStdOut();
 	MainWindow();
