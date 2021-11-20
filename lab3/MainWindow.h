@@ -23,7 +23,7 @@ class MainWindow : public Window
 {
 private:
 	std::map<std::string, WinBox*> winBoxes;
-	std::list<PROCESS_INFORMATION*> pidList;
+	std::map<std::string, DWORD> processMap;
 	int arr[ARR_LENGTH];
 	HANDLE hStdin;
 	HANDLE hStdout;
@@ -48,6 +48,7 @@ public:
 	void printArray(COORD textCoord);
 	void handleArrayData(COORD outCoord);
 	void Show();
-	void runProgram(std::string fileName);
+	void runProgram(std::string fileName, std::string processName);
+	bool isProcessExits(std::string processName);
 };
 

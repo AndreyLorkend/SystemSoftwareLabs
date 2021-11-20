@@ -19,19 +19,23 @@ void Button::onClick(MOUSE_EVENT_RECORD& mer, Window* sender)
 		switch (event_)
 		{
 		case C_C:
-			sender->runProgram("../C_to_C/lab1.exe");
+			if (!sender->isProcessExits("C-C")) {
+				sender->runProgram("../C_to_C/lab1.exe", "C-C");
+			}
 			break;
 		case C_ASM:
-			sender->runProgram("../C_to_Asm/lab1.exe");
+			if (!sender->isProcessExits("C-ASM")) {
+				sender->runProgram("../C_to_Asm/lab1.exe", "C-ASM");
+			}
 			break;
 		case ASM_C:
-			sender->runProgram("../Asm_to_C/lab1.exe");
+			sender->runProgram("../Asm_to_C/lab1.exe", "ASM-C");
 			break;
 		case ASM_ASM:
-			sender->runProgram("../Asm_to_Asm/lab1.exe");
+			sender->runProgram("../Asm_to_Asm/lab1.exe", "ASM-ASM");
 			break;
 		case LAB_2:
-			sender->runProgram("../Release/lab2.exe");
+			sender->runProgram("../Release/lab2.exe", "LAB-2");
 			break;
 		case CLOSE:
 			sender->setExitFlag(true);
@@ -44,30 +48,30 @@ void Button::onClick(MOUSE_EVENT_RECORD& mer, Window* sender)
 
 void Button::onKbClick(KEY_EVENT_RECORD& ker, Window* sender)
 {
-	if (ker.wVirtualKeyCode == key_) {
-		switch (ker.wVirtualKeyCode)
-		{
-		case FIRST:
-			sender->runProgram("../C_to_C/lab1.exe");
-			break;
-		case SECOND:
-			sender->runProgram("../C_to_Asm/lab1.exe");
-			break;
-		case THIRD:
-			sender->runProgram("../Asm_to_C/lab1.exe");
-			break;
-		case FOURTH:
-			sender->runProgram("../Asm_to_Asm/lab1.exe");
-			break;
-		case FIFTH:
-			sender->runProgram("../Release/lab2.exe");
-			break;
-		case SIXTH:
-			sender->setExitFlag(true);
-		default:
-			break;
-		}
-	}
+	//if (ker.wVirtualKeyCode == key_) {
+	//	switch (ker.wVirtualKeyCode)
+	//	{
+	//	case FIRST:
+	//		sender->runProgram("../C_to_C/lab1.exe");
+	//		break;
+	//	case SECOND:
+	//		sender->runProgram("../C_to_Asm/lab1.exe");
+	//		break;
+	//	case THIRD:
+	//		sender->runProgram("../Asm_to_C/lab1.exe");
+	//		break;
+	//	case FOURTH:
+	//		sender->runProgram("../Asm_to_Asm/lab1.exe");
+	//		break;
+	//	case FIFTH:
+	//		sender->runProgram("../Release/lab2.exe");
+	//		break;
+	//	case SIXTH:
+	//		sender->setExitFlag(true);
+	//	default:
+	//		break;
+	//	}
+	//}
 }
 
 void Button::writeOutText(HANDLE& hStdout)

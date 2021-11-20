@@ -172,12 +172,11 @@ void MainWindow::Show()
     system("cls");
 }
 
-void MainWindow::runProgram(std::string fileName)
+void MainWindow::runProgram(std::string fileName, std::string processName)
 {
     STARTUPINFO si;
     ZeroMemory(&si, sizeof(STARTUPINFO));
     PROCESS_INFORMATION pi;
-
     if (!CreateProcess(
         NULL,   // No module name (use command line)
         (LPSTR)fileName.data(),        // Command line
@@ -194,9 +193,35 @@ void MainWindow::runProgram(std::string fileName)
         printf("CreateProcess failed (%d).\n", GetLastError());
         return;
     }
-    printf("s");
+
+    processMap.insert(std::pair<std::string, DWORD>(processName, pi.dwProcessId));
+   
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+}
+
+bool MainWindow::isProcessExits(std::string processName)
+{
+    HANDLE hProc;
+    bool rFlag = false;
+    if (!processMap.empty()) {
+        hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processMap[processName]);
+        if (hProc) {
+            printf("%d", hProc);
+            rFlag = true;
+        } else {
+            for (auto CwIter = processMap.begin(); CwIter != processMap.end();)
+            {
+                if (CwIter->first == processName) {
+                    processMap.erase(CwIter++);
+                } else {
+                    ++CwIter;
+                }
+            }
+        }
+        CloseHandle(hProc);
+    }
+    return rFlag;
 }
 
 VOID MainWindow::KeyEventProc(KEY_EVENT_RECORD ker)

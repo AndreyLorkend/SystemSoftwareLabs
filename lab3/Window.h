@@ -10,7 +10,8 @@ public:
 	virtual HANDLE getHandleStdOut() = 0;
 	virtual void setExitFlag(bool flag) = 0;
 	virtual void handleArrayData(COORD outCoord) = 0;
-	virtual void runProgram(std::string fileName) = 0;
+	virtual void runProgram(std::string fileName, std::string processName) = 0;
+	virtual bool isProcessExits(std::string processName) = 0;
 	virtual ~Window();
 };
 
