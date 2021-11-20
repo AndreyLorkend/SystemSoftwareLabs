@@ -194,7 +194,7 @@ void MainWindow::runProgram(std::string fileName)
         printf("CreateProcess failed (%d).\n", GetLastError());
         return;
     }
-
+    printf("s");
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 }
